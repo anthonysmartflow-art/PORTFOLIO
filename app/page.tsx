@@ -102,7 +102,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="kicker">Independent designer &amp; developer</p>
           <h1 id="hero-title">
-            I design and develop modern websites for nonprofits and small businesses.
+            Modern websites for nonprofits and small businesses.
           </h1>
           <p className="hero-intro">
             I’m Anthony Rosenberger. I help organizations turn complex ideas into clear,
