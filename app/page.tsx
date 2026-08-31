@@ -94,7 +94,7 @@ export default function Home() {
           <a href="#work">Work</a>
           <a href="#about">About</a>
           <a href="#services">Services</a>
-          <a className="nav-cta" href="#contact">Discuss a project</a>
+          <a className="nav-cta" href="mailto:anthony.smartflow@gmail.com">Discuss a project</a>
         </nav>
       </header>
 
@@ -111,7 +111,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="button button-primary" href="#work">View selected work</a>
-            <a className="text-link" href="#contact">Discuss a project <span aria-hidden="true">↓</span></a>
+            <a className="text-link" href="mailto:anthony.smartflow@gmail.com">Discuss a project <ExternalArrow /></a>
           </div>
         </div>
         <aside className="hero-note" aria-label="Portfolio approach">
@@ -276,10 +276,10 @@ export default function Home() {
           <h2 id="contact-title">Have a website in mind?</h2>
           <p>Tell me what you are building, what needs to be clearer, and where you want the project to go.</p>
           <div className="contact-actions" id="contact-details">
-            <a className="button button-light" href="#contact-details" aria-label="Discuss a project; contact details to be added">Discuss a project</a>
+            <a className="button button-light" href="mailto:anthony.smartflow@gmail.com">Discuss a project</a>
             <div className="contact-list">
-              <span><b>Email</b> Add your email before launch</span>
-              <span><b>Phone</b> Add your phone number before launch</span>
+              <span><b>Email</b> <a href="mailto:anthony.smartflow@gmail.com">anthony.smartflow@gmail.com</a></span>
+              <span><b>Phone</b> <a href="tel:+12158505807">215-850-5807</a></span>
             </div>
           </div>
         </div>
