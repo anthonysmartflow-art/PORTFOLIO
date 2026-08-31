@@ -280,6 +280,8 @@ export default function Home() {
             <div className="contact-list">
               <span><b>Email</b> <a href="mailto:anthony.smartflow@gmail.com">anthony.smartflow@gmail.com</a></span>
               <span><b>Phone</b> <a href="tel:+12158505807">215-850-5807</a></span>
+              <span><b>LinkedIn</b> <a href="https://www.linkedin.com/in/anthony-rosenberger-68a4a62ab/" target="_blank" rel="noreferrer">linkedin.com/in/anthony-rosenberger-68a4a62ab <ExternalArrow /></a></span>
+              <span><b>Instagram</b> <a href="https://www.instagram.com/a.j.does_stuff/" target="_blank" rel="noreferrer">instagram.com/a.j.does_stuff <ExternalArrow /></a></span>
             </div>
           </div>
         </div>

@@ -306,7 +306,7 @@ a:focus-visible {
 .contact-actions { grid-column: 2; display: flex; align-items: center; gap: 34px; margin-top: 38px; }
 .button-light { background: white; color: var(--blue-dark); }
 .contact-list { display: grid; gap: 5px; color: rgba(255,255,255,0.78); font-size: 0.86rem; }
-.contact-list b { display: inline-block; width: 54px; color: white; }
+.contact-list b { display: inline-block; width: 76px; color: white; }
 
 .site-footer { display: flex; justify-content: space-between; gap: 24px; padding: 30px max(24px, calc((100vw - 1180px) / 2)); background: var(--ink); color: rgba(255,255,255,0.65); font-size: 0.78rem; }
 .site-footer a { color: white; }
