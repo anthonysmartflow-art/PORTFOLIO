@@ -317,6 +317,10 @@ export default function Home() {
         <div className="services-intro">
           <p className="section-label">Services</p>
           <h2 id="services-title">The pieces needed to get a website across the finish line.</h2>
+          <p className="services-fit">
+            Best suited for nonprofits and small businesses that need a clearer story,
+            a modern website, and hands-on launch support.
+          </p>
         </div>
         <ul>
           {services.map((service) => <li key={service}>{service}</li>)}

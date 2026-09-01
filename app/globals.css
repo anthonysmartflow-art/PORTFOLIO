@@ -353,6 +353,7 @@ a:focus-visible {
 
 .services { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 80px; align-items: start; padding-block: 112px; }
 .services-intro h2 { max-width: 620px; }
+.services-fit { max-width: 570px; margin: 26px 0 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.65; }
 .services ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .services li { position: relative; padding: 22px 42px 22px 0; border-bottom: 1px solid var(--line); font-size: 1.18rem; font-weight: 650; }
 .services li::after { position: absolute; content: '•'; right: 8px; color: var(--blue); }
