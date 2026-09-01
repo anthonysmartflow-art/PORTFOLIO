@@ -156,6 +156,25 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="follow-work section-shell" aria-labelledby="follow-work-title">
+        <p className="follow-work-mark">HNGR · Build log</p>
+        <div className="follow-work-copy">
+          <h2 id="follow-work-title">Follow the work</h2>
+          <p>
+            Follow the process of building HNGR—from early ideas and design experiments
+            to the behind-the-scenes work of launching real websites.
+          </p>
+        </div>
+        <a
+          className="follow-work-link"
+          href="https://www.instagram.com/a.j.does_stuff/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          @a.j.does_stuff <ExternalArrow />
+        </a>
+      </section>
+
       <section className="nonprofit-focus" id="nonprofits" aria-labelledby="nonprofit-title">
         <div className="nonprofit-inner section-shell">
           <header>
