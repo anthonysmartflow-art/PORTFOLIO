@@ -92,6 +92,7 @@ export default function Home() {
         </a>
         <nav aria-label="Main navigation">
           <a href="#work">Work</a>
+          <a href="#nonprofits">Nonprofits</a>
           <a href="#about">About</a>
           <a href="#services">Services</a>
           <a className="nav-cta" href="mailto:anthony.smartflow@gmail.com">Discuss a project</a>
@@ -106,8 +107,7 @@ export default function Home() {
           </h1>
           <p className="hero-intro">
             I’m Anthony Rosenberger. I help organizations turn complex ideas into clear,
-            responsive websites. I’m also a junior at Boston College and a Division I
-            college athlete.
+            responsive websites built to earn trust and move people to act.
           </p>
           <div className="hero-actions">
             <a className="button button-primary" href="#work">View selected work</a>
@@ -139,15 +139,41 @@ export default function Home() {
         </div>
         <div className="about-copy">
           <p className="section-label">Who I am</p>
-          <h2 id="about-title">Design discipline shaped by college athletics.</h2>
+          <h2 id="about-title">A disciplined approach to every build.</h2>
           <p>
             I’m a junior at Boston College and a Division I college athlete. I bring the
             same preparation, consistency, and attention to detail to every website I
             design and develop.
           </p>
-          <div className="about-facts" aria-label="About Anthony">
-            <span>Boston College · Junior</span>
-            <span>Division I college athlete</span>
+        </div>
+      </section>
+
+      <section className="nonprofit-focus" id="nonprofits" aria-labelledby="nonprofit-title">
+        <div className="nonprofit-inner section-shell">
+          <header>
+            <p className="section-label">For nonprofits</p>
+            <h2 id="nonprofit-title">A straightforward website process for mission-driven organizations.</h2>
+          </header>
+          <div className="nonprofit-copy">
+            <p className="nonprofit-lead">
+              I’m developing a focused website service for nonprofits that need clearer
+              messaging, modern technology, and dependable launch support.
+            </p>
+            <p>
+              Each project starts with the organization’s mission, audience, goals, and
+              budget. From there, I organize the story, design the experience, build it
+              for every screen, and support the organization through launch.
+            </p>
+            <ol className="nonprofit-process" aria-label="Website process for nonprofits">
+              <li><span>1</span><strong>Understand</strong><small>Mission, audience, goals, and budget</small></li>
+              <li><span>2</span><strong>Organize</strong><small>Story, content, and clear next steps</small></li>
+              <li><span>3</span><strong>Build</strong><small>Design, development, and mobile optimization</small></li>
+              <li><span>4</span><strong>Launch</strong><small>Domain, hosting, testing, and support</small></li>
+            </ol>
+            <p className="nonprofit-note">
+              I’m developing this work one conversation and project at a time while
+              learning how thoughtful design can better support nonprofit communities.
+            </p>
           </div>
         </div>
       </section>

@@ -1,22 +1,22 @@
 :root {
-  --ink: #10203c;
-  --ink-soft: #31425f;
-  --paper: #f4f7fb;
+  --ink: #241b1b;
+  --ink-soft: #544747;
+  --paper: #f7f4ee;
   --white: #ffffff;
-  --line: #cdd7e7;
-  --blue: #3658f5;
-  --blue-dark: #1733c7;
-  --blue-pale: #dfe7ff;
+  --line: #d9d0c2;
+  --blue: #8a100b;
+  --blue-dark: #5b0c09;
+  --blue-pale: #e9dfcd;
   --forest: #10281d;
   --moss: #97ad8f;
-  --gold: #e3c279;
+  --gold: #b29d6c;
   --display: Baskerville, 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   --body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --utility: var(--body);
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: clip; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; overflow-x: clip; }
 
 body {
   margin: 0;
@@ -54,7 +54,7 @@ a:focus-visible {
   min-height: 76px;
   padding: 14px max(24px, calc((100vw - 1180px) / 2));
   border-bottom: 1px solid color-mix(in srgb, var(--line) 76%, transparent);
-  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
   backdrop-filter: blur(18px);
 }
 
@@ -73,11 +73,11 @@ a:focus-visible {
 .site-header .nav-cta {
   padding: 10px 16px;
   border-radius: 999px;
-  background: var(--ink);
+  background: var(--blue);
   color: var(--white);
 }
 
-.site-header .nav-cta:hover { background: var(--blue); color: var(--white); }
+.site-header .nav-cta:hover { background: var(--blue-dark); color: var(--white); }
 
 .hero {
   position: relative;
@@ -85,8 +85,8 @@ a:focus-visible {
   grid-template-columns: minmax(0, 1fr) 270px;
   align-items: end;
   gap: 72px;
-  min-height: 700px;
-  padding: clamp(110px, 14vw, 190px) max(24px, calc((100vw - 1180px) / 2)) 84px;
+  min-height: 660px;
+  padding: clamp(110px, 13vw, 170px) max(24px, calc((100vw - 1180px) / 2)) 84px;
   overflow: hidden;
 }
 
@@ -132,10 +132,10 @@ a:focus-visible {
   max-width: 940px;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(3.6rem, 7.7vw, 7.4rem);
+  font-size: clamp(3.5rem, 6.7vw, 6.5rem);
   font-weight: 400;
   letter-spacing: -0.055em;
-  line-height: 0.94;
+  line-height: 0.96;
   text-wrap: balance;
 }
 
@@ -186,7 +186,7 @@ a:focus-visible {
   grid-template-columns: minmax(300px, 0.78fr) 1.22fr;
   gap: clamp(48px, 8vw, 110px);
   align-items: center;
-  padding-block: 140px;
+  padding-block: 124px;
 }
 
 .portrait-frame {
@@ -214,10 +214,11 @@ a:focus-visible {
 .about-copy h2,
 .section-heading h2,
 .services h2,
-.contact h2 {
+.contact h2,
+.nonprofit-focus h2 {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(2.8rem, 5.4vw, 5.6rem);
+  font-size: clamp(2.7rem, 4.8vw, 4.9rem);
   font-weight: 400;
   letter-spacing: -0.045em;
   line-height: 1;
@@ -225,10 +226,44 @@ a:focus-visible {
 }
 
 .about-copy > p:not(.section-label) { max-width: 650px; margin: 28px 0; color: var(--ink-soft); font-size: 1.12rem; }
-.about-facts { display: flex; flex-wrap: wrap; gap: 10px; }
-.about-facts span { padding: 9px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 0.82rem; font-weight: 650; }
 
-.work { padding-block: 100px 150px; }
+.nonprofit-focus {
+  position: relative;
+  padding-block: 128px;
+  overflow: hidden;
+  background: var(--blue);
+  color: var(--white);
+}
+
+.nonprofit-focus::after {
+  position: absolute;
+  content: '';
+  right: -130px;
+  bottom: -260px;
+  width: 560px;
+  height: 560px;
+  border: 1px solid rgba(178, 157, 108, 0.38);
+  border-radius: 50%;
+  box-shadow: 0 0 0 58px rgba(178, 157, 108, 0.08), 0 0 0 116px rgba(178, 157, 108, 0.05);
+  pointer-events: none;
+}
+
+.nonprofit-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(60px, 9vw, 132px); align-items: start; }
+.nonprofit-focus .section-label { color: var(--gold); }
+.nonprofit-focus h2 { max-width: 540px; }
+.nonprofit-copy { max-width: 690px; }
+.nonprofit-copy > p { margin: 0; color: rgba(255,255,255,0.78); }
+.nonprofit-copy .nonprofit-lead { color: var(--white); font-family: var(--display); font-size: clamp(1.65rem, 2.8vw, 2.45rem); line-height: 1.2; }
+.nonprofit-copy > p + p { margin-top: 24px; }
+.nonprofit-process { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 44px 0 34px; padding: 0; border-top: 1px solid rgba(255,255,255,0.22); list-style: none; }
+.nonprofit-process li { display: grid; grid-template-columns: 34px 1fr; column-gap: 12px; padding: 22px 20px 22px 0; border-bottom: 1px solid rgba(255,255,255,0.22); }
+.nonprofit-process li:nth-child(even) { padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.22); }
+.nonprofit-process span { grid-row: 1 / 3; color: var(--gold); font-family: var(--display); font-size: 1.55rem; line-height: 1; }
+.nonprofit-process strong { font-size: 0.86rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.nonprofit-process small { margin-top: 4px; color: rgba(255,255,255,0.64); font-size: 0.78rem; line-height: 1.45; }
+.nonprofit-copy .nonprofit-note { padding-left: 20px; border-left: 3px solid var(--gold); color: rgba(255,255,255,0.72); font-size: 0.92rem; }
+
+.work { padding-block: 124px 150px; }
 .section-heading { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 72px; align-items: start; margin-bottom: 90px; }
 .section-heading .section-label { padding-top: 10px; }
 
@@ -236,7 +271,7 @@ a:focus-visible {
 .project:last-child { border-bottom: 1px solid var(--line); }
 .project-topline { display: flex; justify-content: space-between; gap: 40px; align-items: start; margin-bottom: 32px; }
 .project-index { margin-bottom: 8px; }
-.project-topline h3 { max-width: 760px; margin: 0; font-family: var(--display); font-size: clamp(2rem, 4vw, 4.2rem); font-weight: 400; letter-spacing: -0.035em; line-height: 1.02; text-wrap: balance; }
+.project-topline h3 { max-width: 760px; margin: 0; font-family: var(--display); font-size: clamp(2rem, 3.6vw, 3.8rem); font-weight: 400; letter-spacing: -0.035em; line-height: 1.02; text-wrap: balance; }
 
 .status { flex: 0 0 auto; padding: 8px 11px; border-radius: 999px; font-family: var(--utility); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
 .status-prelaunch { background: #f3e7cf; color: #67470f; }
@@ -298,9 +333,9 @@ a:focus-visible {
 .services li { position: relative; padding: 22px 42px 22px 0; border-bottom: 1px solid var(--line); font-size: 1.18rem; font-weight: 650; }
 .services li::after { position: absolute; content: '•'; right: 8px; color: var(--blue); }
 
-.contact { padding: 140px 0; background: var(--blue); color: white; }
+.contact { padding: 140px 0; background: var(--ink); color: white; }
 .contact-inner { display: grid; grid-template-columns: 0.8fr 1.2fr; column-gap: 90px; }
-.contact .section-label { color: var(--blue-pale); }
+.contact .section-label { color: var(--gold); }
 .contact h2 { max-width: 780px; }
 .contact-inner > p:not(.section-label) { grid-column: 2; max-width: 660px; margin: 30px 0 0; color: rgba(255,255,255,0.8); font-size: 1.12rem; }
 .contact-actions { grid-column: 2; display: flex; align-items: center; gap: 34px; margin-top: 38px; }
@@ -308,7 +343,7 @@ a:focus-visible {
 .contact-list { display: grid; gap: 5px; color: rgba(255,255,255,0.78); font-size: 0.86rem; }
 .contact-list b { display: inline-block; width: 76px; color: white; }
 
-.site-footer { display: flex; justify-content: space-between; gap: 24px; padding: 30px max(24px, calc((100vw - 1180px) / 2)); background: var(--ink); color: rgba(255,255,255,0.65); font-size: 0.78rem; }
+.site-footer { display: flex; justify-content: space-between; gap: 24px; padding: 30px max(24px, calc((100vw - 1180px) / 2)); background: var(--blue-dark); color: rgba(255,255,255,0.68); font-size: 0.78rem; }
 .site-footer a { color: white; }
 
 @media (max-width: 900px) {
@@ -322,6 +357,8 @@ a:focus-visible {
   .portrait-frame { aspect-ratio: 4 / 5; min-height: 0; }
   .portrait-image, .portrait-placeholder { min-height: 0; height: 100%; }
   .section-heading { grid-template-columns: 1fr; gap: 18px; }
+  .nonprofit-inner { grid-template-columns: 1fr; gap: 48px; }
+  .nonprofit-focus h2 { max-width: 760px; }
   .project-details { grid-template-columns: 1fr; }
   .project-details > div { padding: 22px 0; }
   .project-details > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
@@ -343,13 +380,18 @@ a:focus-visible {
   .hero-actions { align-items: flex-start; flex-direction: column; gap: 15px; }
   .hero-note { grid-template-columns: 1fr; gap: 0; padding-bottom: 12px; }
   .hero-note span { padding: 10px 0; font-size: 0.66rem; }
-  .about, .work, .services { padding-block: 76px; }
+  .about, .work, .services, .nonprofit-focus { padding-block: 76px; }
   .about { gap: 52px; }
-  .about-copy h2, .section-heading h2, .services h2, .contact h2 { font-size: clamp(2.45rem, 12vw, 3.7rem); letter-spacing: -0.035em; line-height: 1.02; }
+  .about-copy h2, .section-heading h2, .services h2, .contact h2, .nonprofit-focus h2 { font-size: clamp(2.45rem, 12vw, 3.7rem); letter-spacing: -0.035em; line-height: 1.02; }
   .about-copy > p:not(.section-label) { margin: 22px 0; font-size: 1rem; }
   .portrait-frame { border-radius: 2px 2px 110px 2px; box-shadow: 12px 12px 0 var(--blue); }
   .portrait-image { object-position: center 20%; }
   .section-heading { margin-bottom: 58px; }
+  .nonprofit-inner { gap: 34px; }
+  .nonprofit-copy .nonprofit-lead { font-size: clamp(1.55rem, 7.6vw, 2.1rem); }
+  .nonprofit-process { grid-template-columns: 1fr; margin-block: 34px 28px; }
+  .nonprofit-process li:nth-child(even) { padding-left: 0; border-left: 0; }
+  .nonprofit-focus::after { right: -260px; bottom: -300px; }
   .project { padding: 42px 0 64px; }
   .project-topline { display: grid; gap: 18px; }
   .project-topline h3 { font-size: clamp(2.15rem, 10vw, 3rem); line-height: 1.04; }
