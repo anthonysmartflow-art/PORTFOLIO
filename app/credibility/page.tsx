@@ -30,7 +30,7 @@ export default function CredibilityPage() {
         </Link>
         <nav aria-label="Main navigation">
           <Link className="nav-page-link" href="/">Home</Link>
-          <Link href="/#work">Selected work</Link>
+          <Link className="nav-scroll-link" href="/#work">Selected work</Link>
           <a className="nav-cta" href="mailto:anthony.smartflow@gmail.com">
             Discuss a project
           </a>
