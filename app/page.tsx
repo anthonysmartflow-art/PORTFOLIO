@@ -91,10 +91,7 @@ export default function Home() {
           Anthony Rosenberger
         </a>
         <nav aria-label="Main navigation">
-          <a href="#work">Work</a>
           <a href="#nonprofits">Nonprofits</a>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
           <a className="nav-page-link" href="/credibility">Credibility</a>
           <a className="nav-cta" href="mailto:anthony.smartflow@gmail.com">Discuss a project</a>
         </nav>
