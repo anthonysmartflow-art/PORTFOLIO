@@ -88,7 +88,7 @@ a:focus-visible {
   align-items: end;
   gap: 72px;
   min-height: 660px;
-  padding: clamp(110px, 13vw, 170px) max(24px, calc((100vw - 1180px) / 2)) 84px;
+  padding: clamp(76px, 8vw, 112px) max(24px, calc((100vw - 1180px) / 2)) 84px;
   overflow: hidden;
 }
 
@@ -527,7 +527,7 @@ a:focus-visible {
 @media (max-width: 900px) {
   .site-header nav a:not(.nav-cta) { display: none; }
   .site-header nav .nav-page-link { display: inline-flex; margin-right: 18px; }
-  .hero { grid-template-columns: 1fr; gap: 48px; min-height: auto; padding-top: clamp(110px, 17vw, 150px); }
+  .hero { grid-template-columns: 1fr; gap: 48px; min-height: auto; padding-top: clamp(82px, 12vw, 112px); }
   .hero h1 { max-width: 780px; font-size: clamp(3.4rem, 10vw, 6.2rem); }
   .hero::before { top: 160px; right: -180px; width: 500px; height: 500px; }
   .hero-note { grid-template-columns: repeat(3, 1fr); padding-bottom: 20px; }
@@ -558,7 +558,7 @@ a:focus-visible {
   .site-header nav { gap: 0; }
   .site-header nav .nav-page-link { margin-right: 12px; font-size: 0.7rem; }
   .site-header .nav-cta { min-height: 40px; padding: 9px 12px; font-size: 0.7rem; white-space: nowrap; }
-  .hero { gap: 36px; min-height: auto; padding: 96px 18px 70px; }
+  .hero { gap: 36px; min-height: auto; padding: 72px 18px 70px; }
   .hero::after { left: 18px; right: 18px; bottom: 30px; height: 4px; }
   .hero h1 { font-size: clamp(2.8rem, 13.5vw, 4.35rem); letter-spacing: -0.045em; line-height: 0.98; }
   .hero-intro { margin-top: 24px; font-size: 0.98rem; line-height: 1.58; }
