@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import SiteHeader from '../SiteHeader';
 
 export const metadata: Metadata = {
   title: 'Credibility | Anthony Rosenberger',
@@ -24,18 +25,7 @@ function ExternalArrow() {
 export default function CredibilityPage() {
   return (
     <main className="credibility-page">
-      <header className="site-header">
-        <Link className="wordmark" href="/" aria-label="Anthony Rosenberger, home">
-          Anthony Rosenberger
-        </Link>
-        <nav aria-label="Main navigation">
-          <Link className="nav-page-link" href="/">Home</Link>
-          <Link className="nav-scroll-link" href="/#work">Selected work</Link>
-          <a className="nav-cta" href="mailto:anthony.smartflow@gmail.com">
-            Discuss a project
-          </a>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <section className="credibility-hero" aria-labelledby="credibility-title">
         <div className="section-shell credibility-hero-inner">

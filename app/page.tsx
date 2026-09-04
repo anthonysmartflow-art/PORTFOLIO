@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import SiteHeader from './SiteHeader';
 
 const timelineEvents = [
   {
@@ -86,16 +87,7 @@ export default function Home() {
 
   return (
     <main>
-      <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Anthony Rosenberger, home">
-          Anthony Rosenberger
-        </a>
-        <nav aria-label="Main navigation">
-          <a className="nav-scroll-link" href="#nonprofits">Nonprofits</a>
-          <a className="nav-page-link" href="/credibility">Credibility</a>
-          <a className="nav-cta" href="mailto:anthony.smartflow@gmail.com">Discuss a project</a>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <section className="hero" id="top" aria-labelledby="hero-title">
         <div className="hero-copy">
