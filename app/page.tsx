@@ -95,6 +95,7 @@ export default function Home() {
           <a href="#nonprofits">Nonprofits</a>
           <a href="#about">About</a>
           <a href="#services">Services</a>
+          <a className="nav-page-link" href="/credibility">Credibility</a>
           <a className="nav-cta" href="mailto:anthony.smartflow@gmail.com">Discuss a project</a>
         </nav>
       </header>
