@@ -11,7 +11,10 @@ export default function AdminPage() {
   const supabase = getSupabaseBrowserClient();
   const [checkingSession, setCheckingSession] = useState(Boolean(supabase));
   const [signedIn, setSignedIn] = useState(false);
+  const [recoveryMode, setRecoveryMode] = useState(false);
   const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [headline, setHeadline] = useState('');
   const [status, setStatus] = useState(supabase ? '' : 'Supabase is not connected yet.');
   const [busy, setBusy] = useState(false);
@@ -39,12 +42,24 @@ export default function AdminPage() {
     const checkSession = async () => {
       const { data } = await supabase.auth.getSession();
       const hasSession = Boolean(data.session);
-      setSignedIn(hasSession);
-      if (hasSession) await loadHeadline();
+      const isRecovering = window.location.hash.includes('type=recovery');
+      setRecoveryMode(isRecovering && hasSession);
+      setSignedIn(hasSession && !isRecovering);
+      if (hasSession && !isRecovering) await loadHeadline();
       setCheckingSession(false);
     };
 
+    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setRecoveryMode(true);
+        setSignedIn(false);
+        setCheckingSession(false);
+      }
+    });
+
     void checkSession();
+
+    return () => authListener.subscription.unsubscribe();
   }, [loadHeadline, supabase]);
 
   const signIn = async (event: FormEvent<HTMLFormElement>) => {
@@ -68,6 +83,54 @@ export default function AdminPage() {
     setPassword('');
     setSignedIn(true);
     await loadHeadline();
+    setBusy(false);
+  };
+
+  const sendPasswordReset = async () => {
+    if (!supabase || busy) return;
+
+    setBusy(true);
+    setStatus('Sending reset email…');
+
+    const { error } = await supabase.auth.resetPasswordForEmail(adminEmail, {
+      redirectTo: 'https://anthonyrosenberger.com/admin',
+    });
+
+    setStatus(
+      error
+        ? 'The reset email could not be sent. Please try again.'
+        : 'Check rosenant@bc.edu for the password-reset email.',
+    );
+    setBusy(false);
+  };
+
+  const updatePassword = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!supabase || busy) return;
+
+    if (newPassword !== confirmPassword) {
+      setStatus('The two passwords do not match.');
+      return;
+    }
+
+    setBusy(true);
+    setStatus('Updating password…');
+
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+
+    if (error) {
+      setStatus('The password could not be updated. Please request a new reset email.');
+      setBusy(false);
+      return;
+    }
+
+    window.history.replaceState({}, '', '/admin');
+    setNewPassword('');
+    setConfirmPassword('');
+    setRecoveryMode(false);
+    setSignedIn(true);
+    await loadHeadline();
+    setStatus('Password updated. You are signed in.');
     setBusy(false);
   };
 
@@ -106,6 +169,7 @@ export default function AdminPage() {
     if (!supabase) return;
     await supabase.auth.signOut();
     setSignedIn(false);
+    setRecoveryMode(false);
     setHeadline('');
     setStatus('Signed out.');
   };
@@ -119,6 +183,32 @@ export default function AdminPage() {
 
         {checkingSession ? (
           <p>Checking your login…</p>
+        ) : recoveryMode ? (
+          <form onSubmit={updatePassword}>
+            <label htmlFor="new-password">New password</label>
+            <input
+              id="new-password"
+              type="password"
+              value={newPassword}
+              onChange={(event) => setNewPassword(event.target.value)}
+              autoComplete="new-password"
+              minLength={8}
+              required
+            />
+            <label htmlFor="confirm-password">Confirm new password</label>
+            <input
+              id="confirm-password"
+              type="password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              autoComplete="new-password"
+              minLength={8}
+              required
+            />
+            <button className="admin-primary" type="submit" disabled={busy}>
+              {busy ? 'Updating…' : 'Set new password'}
+            </button>
+          </form>
         ) : signedIn ? (
           <form onSubmit={saveHeadline}>
             <label htmlFor="headline">Headline</label>
@@ -152,9 +242,19 @@ export default function AdminPage() {
               autoComplete="current-password"
               required
             />
-            <button className="admin-primary" type="submit" disabled={busy || !supabase}>
-              {busy ? 'Signing in…' : 'Sign in'}
-            </button>
+            <div className="admin-actions">
+              <button className="admin-primary" type="submit" disabled={busy || !supabase}>
+                {busy ? 'Working…' : 'Sign in'}
+              </button>
+              <button
+                className="admin-secondary"
+                type="button"
+                onClick={sendPasswordReset}
+                disabled={busy || !supabase}
+              >
+                Forgot password
+              </button>
+            </div>
           </form>
         )}
 
