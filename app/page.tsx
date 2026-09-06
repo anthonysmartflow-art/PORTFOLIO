@@ -1,5 +1,6 @@
 'use client';
 
+import type { FormEvent } from 'react';
 import { useState } from 'react';
 import SiteHeader from './SiteHeader';
 
@@ -83,6 +84,29 @@ export default function Home() {
     setActiveTimeline((current) =>
       (current + direction + timelineEvents.length) % timelineEvents.length,
     );
+  };
+
+  const prepareProjectInquiry = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = new FormData(event.currentTarget);
+    const name = String(form.get('name') || '').trim();
+    const email = String(form.get('email') || '').trim();
+    const organization = String(form.get('organization') || '').trim();
+    const goals = String(form.get('goals') || '').trim();
+    const subject = organization
+      ? `Website project inquiry — ${organization}`
+      : `Website project inquiry — ${name}`;
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Organization: ${organization || 'Not provided'}`,
+      '',
+      'What I need help with:',
+      goals,
+    ].join('\n');
+
+    window.location.href = `mailto:anthony.smartflow@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -318,18 +342,57 @@ export default function Home() {
       </section>
 
       <section className="contact" id="contact" aria-labelledby="contact-title">
-        <div className="contact-inner section-shell">
-          <p className="section-label">Contact</p>
-          <h2 id="contact-title">Have a website in mind?</h2>
-          <p>Tell me what you are building, what needs to be clearer, and where you want the project to go.</p>
-          <div className="contact-actions" id="contact-details">
-            <a className="button button-light" href="mailto:anthony.smartflow@gmail.com">Discuss a project</a>
-            <div className="contact-list">
-              <span><b>Email</b> <a href="mailto:anthony.smartflow@gmail.com">anthony.smartflow@gmail.com</a></span>
-              <span><b>Phone</b> <a href="tel:+12158505807">215-850-5807</a></span>
-              <span><b>LinkedIn</b> <a href="https://www.linkedin.com/in/anthony-rosenberger-68a4a62ab/" target="_blank" rel="noreferrer">View profile <ExternalArrow /></a></span>
-              <span><b>Instagram</b> <a href="https://www.instagram.com/a.j.does_stuff/" target="_blank" rel="noreferrer">@a.j.does_stuff <ExternalArrow /></a></span>
-            </div>
+        <div className="section-shell">
+          <header className="contact-heading">
+            <p className="section-label">Contact</p>
+            <h2 id="contact-title">Let’s make your website clearer, stronger, and ready to launch.</h2>
+            <p>
+              Share a little about your organization and what the website needs to do.
+              I’ll review the details and follow up personally.
+            </p>
+          </header>
+
+          <div className="contact-panel" id="contact-details">
+            <form className="contact-form" onSubmit={prepareProjectInquiry}>
+              <div className="contact-form-row">
+                <label>
+                  <span>Name</span>
+                  <input name="name" type="text" autoComplete="name" required />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input name="email" type="email" autoComplete="email" required />
+                </label>
+              </div>
+
+              <label>
+                <span>Organization <small>Optional</small></span>
+                <input name="organization" type="text" autoComplete="organization" />
+              </label>
+
+              <label>
+                <span>What do you need help with?</span>
+                <small>Describe the website, what needs to be clearer, and where you want the project to go.</small>
+                <textarea name="goals" rows={7} required />
+              </label>
+
+              <button className="button contact-submit" type="submit">
+                Prepare project inquiry <ExternalArrow />
+              </button>
+              <p className="contact-note">
+                This opens a prepared draft in your email app. Nothing is stored on this website.
+              </p>
+            </form>
+
+            <aside className="contact-direct" aria-label="Direct contact details">
+              <p>Prefer to reach out directly?</p>
+              <div className="contact-list">
+                <span><b>Email</b> <a href="mailto:anthony.smartflow@gmail.com">anthony.smartflow@gmail.com</a></span>
+                <span><b>Phone</b> <a href="tel:+12158505807">215-850-5807</a></span>
+                <span><b>LinkedIn</b> <a href="https://www.linkedin.com/in/anthony-rosenberger-68a4a62ab/" target="_blank" rel="noreferrer">View profile <ExternalArrow /></a></span>
+                <span><b>Instagram</b> <a href="https://www.instagram.com/a.j.does_stuff/" target="_blank" rel="noreferrer">@a.j.does_stuff <ExternalArrow /></a></span>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
