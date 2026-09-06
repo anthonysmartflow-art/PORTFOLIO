@@ -127,6 +127,10 @@ img { display: block; max-width: 100%; }
 .admin-photo-editor .admin-photo-preview { width: min(100%, 300px); aspect-ratio: 4 / 5; min-height: 0; margin: 24px 0 32px; }
 .admin-photo-editor .portrait-image { min-height: 0; height: 100%; }
 .admin-photo-editor .admin-actions { margin-top: 16px; }
+.admin-crop-controls { border: 0; padding: 0; margin: 24px 0; min-width: 0; }
+.admin-crop-controls legend { font-weight: 700; }
+.admin-crop-controls p { color: var(--ink-soft); line-height: 1.5; }
+.admin-crop-controls input[type="range"] { padding: 0; height: 36px; margin: 0 0 12px; accent-color: var(--blue); cursor: pointer; }
 
 button:focus-visible,
 a:focus-visible {
