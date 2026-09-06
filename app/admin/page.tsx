@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { getSupabaseBrowserClient } from '../../lib/supabase';
 import ProfilePhotoEditor from './ProfilePhotoEditor';
+import { beginAdminVisit, isRecoveryLink } from '../../lib/admin-session';
 
 const adminEmail = 'rosenant@bc.edu';
 
 export default function AdminPage() {
+  // Capture before Supabase processes and removes the recovery fragment.
+  const [recoveryLink] = useState(() => typeof window !== 'undefined' && isRecoveryLink(window.location.hash));
   const supabase = getSupabaseBrowserClient();
   const [checkingSession, setCheckingSession] = useState(Boolean(supabase));
   const [signedIn, setSignedIn] = useState(false);
@@ -39,29 +42,51 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (!supabase) return;
+    let active = true;
 
     const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      const hasSession = Boolean(data.session);
-      const isRecovering = window.location.hash.includes('type=recovery');
-      setRecoveryMode(isRecovering && hasSession);
-      setSignedIn(hasSession && !isRecovering);
-      if (hasSession && !isRecovering) await loadHeadline();
-      setCheckingSession(false);
+      try {
+        const recovering = await beginAdminVisit(supabase.auth, recoveryLink);
+        if (!active) return;
+        setRecoveryMode(recovering);
+        setSignedIn(false);
+        setCheckingSession(false);
+      } catch {
+        if (!active) return;
+        setSignedIn(false);
+        setRecoveryMode(false);
+        setStatus('Could not prepare a fresh login. Refresh this page to try again.');
+        // Fail closed: do not expose the editor or allow a login during cleanup failure.
+      }
     };
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!active) return;
+      if (event === 'PASSWORD_RECOVERY' && recoveryLink && session) {
         setRecoveryMode(true);
         setSignedIn(false);
         setCheckingSession(false);
       }
+      if (event === 'SIGNED_OUT') {
+        setSignedIn(false);
+        setRecoveryMode(false);
+        setHeadline('');
+        setPassword('');
+      }
     });
 
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) window.location.reload();
+    };
+    window.addEventListener('pageshow', onPageShow);
     void checkSession();
 
-    return () => authListener.subscription.unsubscribe();
-  }, [loadHeadline, supabase]);
+    return () => {
+      active = false;
+      authListener.subscription.unsubscribe();
+      window.removeEventListener('pageshow', onPageShow);
+    };
+  }, [recoveryLink, supabase]);
 
   const signIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

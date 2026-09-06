@@ -8,6 +8,9 @@ export function getSupabaseBrowserClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-  browserClient = url && publishableKey ? createClient(url, publishableKey) : null;
+  browserClient = url && publishableKey ? createClient(url, publishableKey, {
+    // Keep login in memory only: refreshing or opening another tab starts signed out.
+    auth: { persistSession: false },
+  }) : null;
   return browserClient;
 }
