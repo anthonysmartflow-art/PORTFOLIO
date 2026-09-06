@@ -96,7 +96,9 @@ export default function Home() {
     const goals = String(form.get('goals') || '').trim();
     const subject = organization
       ? `Website project inquiry — ${organization}`
-      : `Website project inquiry — ${name}`;
+      : name
+        ? `Website project inquiry — ${name}`
+        : 'Website project inquiry';
     const body = [
       `Name: ${name}`,
       `Email: ${email}`,
@@ -353,15 +355,15 @@ export default function Home() {
           </header>
 
           <div className="contact-panel" id="contact-details">
-            <form className="contact-form" onSubmit={prepareProjectInquiry}>
+            <form className="contact-form" noValidate onSubmit={prepareProjectInquiry}>
               <div className="contact-form-row">
                 <label>
                   <span>Name</span>
-                  <input name="name" type="text" autoComplete="name" required />
+                  <input name="name" type="text" autoComplete="name" />
                 </label>
                 <label>
                   <span>Email</span>
-                  <input name="email" type="email" autoComplete="email" required />
+                  <input name="email" type="email" autoComplete="email" />
                 </label>
               </div>
 
@@ -372,8 +374,7 @@ export default function Home() {
 
               <label>
                 <span>What do you need help with?</span>
-                <small>Describe the website, what needs to be clearer, and where you want the project to go.</small>
-                <textarea name="goals" rows={7} required />
+                <textarea name="goals" rows={7} />
               </label>
 
               <button className="button contact-submit" type="submit">
