@@ -121,6 +121,12 @@ img { display: block; max-width: 100%; }
 .admin-secondary { background: transparent; color: var(--blue); }
 .admin-primary:disabled { cursor: wait; opacity: 0.6; }
 .admin-status { margin: 22px 0 0; color: var(--ink-soft); }
+.admin-photo-editor { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+.admin-photo-editor h2 { font-size: 32px; margin: 0 0 12px; }
+.admin-photo-editor > p { line-height: 1.6; }
+.admin-photo-editor .admin-photo-preview { width: min(100%, 300px); aspect-ratio: 4 / 5; min-height: 0; margin: 24px 0 32px; }
+.admin-photo-editor .portrait-image { min-height: 0; height: 100%; }
+.admin-photo-editor .admin-actions { margin-top: 16px; }
 
 button:focus-visible,
 a:focus-visible {

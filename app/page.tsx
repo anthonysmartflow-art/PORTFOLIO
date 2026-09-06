@@ -4,6 +4,8 @@ import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import SiteHeader from './SiteHeader';
 import { getSupabaseBrowserClient } from '../lib/supabase';
+import Image from 'next/image';
+import { DEFAULT_PHOTO, profilePhotoUrl } from '../lib/profile-photo';
 
 const defaultHeroHeadline = 'Modern websites for nonprofits and small businesses.';
 
@@ -81,6 +83,7 @@ function ExternalArrow() {
 export default function Home() {
   const [activeTimeline, setActiveTimeline] = useState(0);
   const [headshotAvailable, setHeadshotAvailable] = useState(true);
+  const [profilePhoto, setProfilePhoto] = useState(DEFAULT_PHOTO);
   const [heroHeadline, setHeroHeadline] = useState(defaultHeroHeadline);
   const [contactStatus, setContactStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [contactError, setContactError] = useState('');
@@ -93,11 +96,13 @@ export default function Home() {
     const loadHeadline = async () => {
       const { data } = await supabase
         .from('site_content')
-        .select('content')
-        .eq('id', 'hero_headline')
-        .maybeSingle();
+        .select('id, content')
+        .in('id', ['hero_headline', 'profile_photo']);
 
-      if (data?.content) setHeroHeadline(data.content);
+      for (const row of data ?? []) {
+        if (row.id === 'hero_headline' && row.content) setHeroHeadline(row.content);
+        if (row.id === 'profile_photo') setProfilePhoto(profilePhotoUrl(row.content));
+      }
     };
 
     void loadHeadline();
@@ -175,11 +180,17 @@ export default function Home() {
       <section className="about section-shell" id="about" aria-labelledby="about-title">
         <div className="portrait-frame">
           {headshotAvailable ? (
-            <img
+            <Image
               className="portrait-image"
-              src="/projects/Headshot.png"
+              src={profilePhoto}
+              width={800}
+              height={1000}
+              unoptimized
               alt="Anthony Rosenberger"
-              onError={() => setHeadshotAvailable(false)}
+              onError={() => {
+                if (profilePhoto !== DEFAULT_PHOTO) setProfilePhoto(DEFAULT_PHOTO);
+                else setHeadshotAvailable(false);
+              }}
             />
           ) : (
             <div className="portrait-placeholder" role="img" aria-label="Headshot to be added">

@@ -4,6 +4,7 @@ import type { FormEvent } from 'react';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { getSupabaseBrowserClient } from '../../lib/supabase';
+import ProfilePhotoEditor from './ProfilePhotoEditor';
 
 const adminEmail = 'rosenant@bc.edu';
 
@@ -179,7 +180,7 @@ export default function AdminPage() {
       <section className="admin-card" aria-labelledby="admin-title">
         <Link className="admin-back" href="/">← Back to website</Link>
         <p className="section-label">Private editor</p>
-        <h1 id="admin-title">Homepage headline</h1>
+        <h1 id="admin-title">Homepage editor</h1>
 
         {checkingSession ? (
           <p>Checking your login…</p>
@@ -259,6 +260,7 @@ export default function AdminPage() {
         )}
 
         {status && <p className="admin-status" role="status">{status}</p>}
+        {signedIn && !recoveryMode && <ProfilePhotoEditor />}
       </section>
     </main>
   );
