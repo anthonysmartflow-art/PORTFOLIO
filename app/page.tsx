@@ -1,8 +1,11 @@
 'use client';
 
 import type { FormEvent } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SiteHeader from './SiteHeader';
+import { getSupabaseBrowserClient } from '../lib/supabase';
+
+const defaultHeroHeadline = 'Modern websites for nonprofits and small businesses.';
 
 const timelineEvents = [
   {
@@ -78,9 +81,27 @@ function ExternalArrow() {
 export default function Home() {
   const [activeTimeline, setActiveTimeline] = useState(0);
   const [headshotAvailable, setHeadshotAvailable] = useState(true);
+  const [heroHeadline, setHeroHeadline] = useState(defaultHeroHeadline);
   const [contactStatus, setContactStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [contactError, setContactError] = useState('');
   const activeEvent = timelineEvents[activeTimeline];
+
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return;
+
+    const loadHeadline = async () => {
+      const { data } = await supabase
+        .from('site_content')
+        .select('content')
+        .eq('id', 'hero_headline')
+        .maybeSingle();
+
+      if (data?.content) setHeroHeadline(data.content);
+    };
+
+    void loadHeadline();
+  }, []);
 
   const moveTimeline = (direction: number) => {
     setActiveTimeline((current) =>
@@ -134,9 +155,7 @@ export default function Home() {
       <section className="hero" id="top" aria-labelledby="hero-title">
         <div className="hero-copy">
           <p className="kicker">Independent designer &amp; developer</p>
-          <h1 id="hero-title">
-            Modern websites for nonprofits and small businesses.
-          </h1>
+          <h1 id="hero-title">{heroHeadline}</h1>
           <p className="hero-intro">
             I’m Anthony Rosenberger. I help organizations turn complex ideas into clear,
             responsive websites built to earn trust and move people to act.
