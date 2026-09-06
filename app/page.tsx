@@ -207,14 +207,24 @@ export default function Home() {
             same preparation, consistency, and attention to detail to every website I
             design and develop.
           </p>
-          <a
-            className="about-link"
-            href="https://www.linkedin.com/in/anthony-rosenberger-68a4a62ab/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Connect on LinkedIn <ExternalArrow />
-          </a>
+          <div className="about-links">
+            <a
+              className="about-link"
+              href="https://www.linkedin.com/in/anthony-rosenberger-68a4a62ab/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Connect on LinkedIn <ExternalArrow />
+            </a>
+            <a
+              className="about-link"
+              href="https://www.instagram.com/a.j.does_stuff/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Follow on Instagram <ExternalArrow />
+            </a>
+          </div>
         </div>
       </section>
 
