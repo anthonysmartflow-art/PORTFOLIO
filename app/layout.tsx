@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: 'Anthony Rosenberger | Website Design & Development',
   description:
     'Anthony Rosenberger designs and develops modern websites for nonprofits and small businesses.',
+  icons: {
+    icon: [{ url: '/favicon.png', type: 'image/png', sizes: '512x512' }],
+    apple: [{ url: '/favicon.png', type: 'image/png', sizes: '512x512' }],
+  },
   openGraph: {
     title: 'Anthony Rosenberger | Website Design & Development',
     description: 'Modern, responsive websites for nonprofits and small businesses.',
