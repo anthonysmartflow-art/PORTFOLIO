@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from 'react';
 import { getSupabaseBrowserClient } from '../../lib/supabase';
 import { DEFAULT_PHOTO, PHOTO_BUCKET, prepareProfilePhoto, profilePhotoUrl } from '../../lib/profile-photo';
 import { DEFAULT_CROP, type PhotoCrop } from '../../lib/photo-crop';
+import { resetContent } from '../../lib/reset-content';
 
 export default function ProfilePhotoEditor() {
   const [current, setCurrent] = useState(DEFAULT_PHOTO);
+  const [initialPhoto, setInitialPhoto] = useState<string | null>(null);
   const [preview, setPreview] = useState('');
   const [pending, setPending] = useState<File | null>(null);
   const [crop, setCrop] = useState<PhotoCrop>(DEFAULT_CROP);
@@ -25,6 +27,7 @@ export default function ProfilePhotoEditor() {
       if (!active) return;
       if (error || !data) { setMessage('Photo settings could not be loaded. Refresh to try again.'); return; }
       setCurrent(profilePhotoUrl(data.content));
+      setInitialPhoto(data.content);
       setReady(true);
       setMessage('');
     }
@@ -76,6 +79,23 @@ export default function ProfilePhotoEditor() {
     } finally { setBusy(false); }
   }
 
+  async function resetPhoto() {
+    if (!supabase || busy || !ready || initialPhoto === null) return;
+    setBusy(true);
+    setMessage('Resetting photo…');
+    try {
+      const restored = await resetContent(supabase, 'profile_photo', initialPhoto);
+      setCurrent(profilePhotoUrl(restored));
+      setPending(null);
+      setPreview('');
+      setCrop(DEFAULT_CROP);
+      if (input.current) input.current.value = '';
+      setMessage('Photo and framing restored to when you logged in. The website is updated.');
+    } catch {
+      setMessage('The photo could not be reset. Please try again.');
+    } finally { setBusy(false); }
+  }
+
   return <section className="admin-photo-editor" aria-labelledby="photo-title">
     <h2 id="photo-title">Profile photo</h2>
     <p>Replace the photo in “Who I am”. JPG, PNG, or WebP, up to 5 MB. Uploaded photos are public.</p>
@@ -109,11 +129,14 @@ export default function ProfilePhotoEditor() {
       <button className="admin-primary" type="button" disabled={busy || !pending || !ready} onClick={() => void savePhoto()}>
         {busy ? 'Working…' : 'Save photo'}
       </button>
+      <button className="admin-secondary" type="button" disabled={busy || !ready || initialPhoto === null}
+        onClick={() => void resetPhoto()} aria-label="Reset photo">Reset</button>
       {pending && <button className="admin-secondary" type="button" disabled={busy} onClick={() => {
         setPending(null); setPreview(''); setMessage('Selection cancelled. Your website is unchanged.');
         if (input.current) input.current.value = '';
       }}>Cancel selection</button>}
     </div>
+    <p>Reset restores the photo and framing from this login, including changes already saved.</p>
     <p role="status" className="admin-status">{message}</p>
   </section>;
 }

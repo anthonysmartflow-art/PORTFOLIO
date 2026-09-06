@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getSupabaseBrowserClient } from '../../lib/supabase';
 import ProfilePhotoEditor from './ProfilePhotoEditor';
 import { beginAdminVisit, isRecoveryLink } from '../../lib/admin-session';
+import { resetContent } from '../../lib/reset-content';
 
 const adminEmail = 'rosenant@bc.edu';
 
@@ -20,6 +21,7 @@ export default function AdminPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [headline, setHeadline] = useState('');
+  const [initialHeadline, setInitialHeadline] = useState<string | null>(null);
   const [status, setStatus] = useState(supabase ? '' : 'Supabase is not connected yet.');
   const [busy, setBusy] = useState(false);
 
@@ -38,6 +40,7 @@ export default function AdminPage() {
     }
 
     setHeadline(data.content);
+    setInitialHeadline(data.content);
   }, [supabase]);
 
   useEffect(() => {
@@ -71,6 +74,7 @@ export default function AdminPage() {
         setSignedIn(false);
         setRecoveryMode(false);
         setHeadline('');
+        setInitialHeadline(null);
         setPassword('');
       }
     });
@@ -197,7 +201,21 @@ export default function AdminPage() {
     setSignedIn(false);
     setRecoveryMode(false);
     setHeadline('');
+    setInitialHeadline(null);
     setStatus('Signed out.');
+  };
+
+  const resetHeadline = async () => {
+    if (!supabase || busy || initialHeadline === null) return;
+    setBusy(true);
+    setStatus('Resetting headline…');
+    try {
+      const restored = await resetContent(supabase, 'hero_headline', initialHeadline);
+      setHeadline(restored);
+      setStatus('Headline restored to when you logged in. The website is updated.');
+    } catch {
+      setStatus('The headline could not be reset. Please try again.');
+    } finally { setBusy(false); }
   };
 
   return (
@@ -244,16 +262,22 @@ export default function AdminPage() {
               onChange={(event) => setHeadline(event.target.value)}
               maxLength={160}
               rows={4}
+              disabled={busy || initialHeadline === null}
               required
             />
             <div className="admin-actions">
-              <button className="admin-primary" type="submit" disabled={busy}>
+              <button className="admin-primary" type="submit" disabled={busy || initialHeadline === null}>
                 {busy ? 'Saving…' : 'Save headline'}
               </button>
-              <button className="admin-secondary" type="button" onClick={signOut}>
+              <button className="admin-secondary" type="button" onClick={() => void resetHeadline()}
+                disabled={busy || initialHeadline === null} aria-label="Reset headline">
+                Reset
+              </button>
+              <button className="admin-secondary" type="button" onClick={signOut} disabled={busy}>
                 Sign out
               </button>
             </div>
+            <p>Reset restores the headline from this login, including changes already saved.</p>
           </form>
         ) : (
           <form onSubmit={signIn}>
