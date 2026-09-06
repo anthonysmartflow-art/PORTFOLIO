@@ -78,6 +78,8 @@ function ExternalArrow() {
 export default function Home() {
   const [activeTimeline, setActiveTimeline] = useState(0);
   const [headshotAvailable, setHeadshotAvailable] = useState(true);
+  const [contactStatus, setContactStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [contactError, setContactError] = useState('');
   const activeEvent = timelineEvents[activeTimeline];
 
   const moveTimeline = (direction: number) => {
@@ -86,29 +88,43 @@ export default function Home() {
     );
   };
 
-  const prepareProjectInquiry = (event: FormEvent<HTMLFormElement>) => {
+  const submitProjectInquiry = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = new FormData(event.currentTarget);
+    if (contactStatus === 'submitting') return;
+
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const name = String(form.get('name') || '').trim();
     const email = String(form.get('email') || '').trim();
     const organization = String(form.get('organization') || '').trim();
     const goals = String(form.get('goals') || '').trim();
-    const subject = organization
-      ? `Website project inquiry — ${organization}`
-      : name
-        ? `Website project inquiry — ${name}`
-        : 'Website project inquiry';
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Organization: ${organization || 'Not provided'}`,
-      '',
-      'What I need help with:',
-      goals,
-    ].join('\n');
 
-    window.location.href = `mailto:anthony.smartflow@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setContactStatus('submitting');
+    setContactError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, organization, goals }),
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(result?.error || 'Your message could not be sent. Please try again.');
+      }
+
+      formElement.reset();
+      setContactStatus('success');
+    } catch (error) {
+      setContactError(
+        error instanceof Error
+          ? error.message
+          : 'Your message could not be sent. Please try again.',
+      );
+      setContactStatus('error');
+    }
   };
 
   return (
@@ -355,15 +371,15 @@ export default function Home() {
           </header>
 
           <div className="contact-panel" id="contact-details">
-            <form className="contact-form" noValidate onSubmit={prepareProjectInquiry}>
+            <form className="contact-form" noValidate onSubmit={submitProjectInquiry}>
               <div className="contact-form-row">
                 <label>
                   <span>Name</span>
-                  <input name="name" type="text" autoComplete="name" />
+                  <input name="name" type="text" autoComplete="name" required />
                 </label>
                 <label>
                   <span>Email</span>
-                  <input name="email" type="email" autoComplete="email" />
+                  <input name="email" type="email" autoComplete="email" required />
                 </label>
               </div>
 
@@ -374,15 +390,28 @@ export default function Home() {
 
               <label>
                 <span>What do you need help with?</span>
-                <textarea name="goals" rows={7} />
+                <textarea name="goals" rows={7} required />
               </label>
 
-              <button className="button contact-submit" type="submit">
-                Prepare project inquiry <ExternalArrow />
+              <button
+                className="button contact-submit"
+                type="submit"
+                disabled={contactStatus === 'submitting'}
+              >
+                {contactStatus === 'submitting' ? 'Sending…' : <>Submit <ExternalArrow /></>}
               </button>
-              <p className="contact-note">
-                This opens a prepared draft in your email app. Nothing is stored on this website.
-              </p>
+              <div className="contact-status-region" aria-live="polite">
+                {contactStatus === 'success' ? (
+                  <p className="contact-status contact-status-success">
+                    Thanks — your message has been sent. Check your inbox for confirmation.
+                  </p>
+                ) : null}
+                {contactStatus === 'error' ? (
+                  <p className="contact-status contact-status-error" role="alert">
+                    {contactError}
+                  </p>
+                ) : null}
+              </div>
             </form>
 
             <aside className="contact-direct" aria-label="Direct contact details">
