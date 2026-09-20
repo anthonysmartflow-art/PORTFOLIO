@@ -350,6 +350,9 @@ a:focus-visible {
   max-width: 100%;
   height: auto;
   margin: 0;
+  /* Normalize the GIF's near-white backdrop, then blend it into the cream paper. */
+  filter: contrast(1.08);
+  mix-blend-mode: multiply;
 }
 
 .follow-work-copy h2 { margin: 0; font-family: var(--display); font-size: clamp(1.9rem, 3vw, 2.9rem); font-weight: 400; letter-spacing: -0.035em; line-height: 1; }
