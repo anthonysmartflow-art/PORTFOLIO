@@ -229,7 +229,7 @@ export default function Home() {
       </section>
 
       <section className="follow-work section-shell" aria-labelledby="follow-work-title">
-        <p className="follow-work-mark">HNGR · Build log</p>
+        <img className="follow-work-mark" src="/hngr.gif" alt="HNGR" width={400} height={400} />
         <div className="follow-work-copy">
           <h2 id="follow-work-title">Follow the work</h2>
           <p>

@@ -345,12 +345,11 @@ a:focus-visible {
 }
 
 .follow-work-mark {
+  display: block;
+  width: 140px;
+  max-width: 100%;
+  height: auto;
   margin: 0;
-  color: var(--blue);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 
 .follow-work-copy h2 { margin: 0; font-family: var(--display); font-size: clamp(1.9rem, 3vw, 2.9rem); font-weight: 400; letter-spacing: -0.035em; line-height: 1; }
