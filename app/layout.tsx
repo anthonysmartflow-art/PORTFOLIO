@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -7,12 +8,25 @@ export const metadata: Metadata = {
   description:
     'Anthony Rosenberger designs and develops modern websites for nonprofits and small businesses.',
   icons: {
-    icon: [{ url: '/favicon.png', type: 'image/png', sizes: '512x512' }],
-    apple: [{ url: '/favicon.png', type: 'image/png', sizes: '512x512' }],
+    icon: [
+      {
+        url: '/favicon.png',
+        type: 'image/png',
+        sizes: '512x512',
+      },
+    ],
+    apple: [
+      {
+        url: '/favicon.png',
+        type: 'image/png',
+        sizes: '512x512',
+      },
+    ],
   },
   openGraph: {
     title: 'Anthony Rosenberger | Website Design & Development',
-    description: 'Modern, responsive websites for nonprofits and small businesses.',
+    description:
+      'Modern, responsive websites for nonprofits and small businesses.',
     type: 'website',
     url: '/',
     images: [
@@ -27,15 +41,23 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Anthony Rosenberger | Website Design & Development',
-    description: 'Modern, responsive websites for nonprofits and small businesses.',
+    description:
+      'Modern, responsive websites for nonprofits and small businesses.',
     images: ['/og.png'],
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
