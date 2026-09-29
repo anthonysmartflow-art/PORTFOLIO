@@ -118,6 +118,43 @@ export default function CredibilityPage() {
         </div>
       </section>
 
+      <section className="service-founder section-shell" aria-labelledby="high-tide-title">
+        <div className="service-founder-copy">
+          <p className="section-label">High Tide Shine · Independently run</p>
+          <h2 id="high-tide-title">Learning to sell my services—and deliver on them.</h2>
+          <p className="service-founder-intro">
+            High Tide Shine put me on both sides of a business: building the website
+            and doing the work it promised.
+          </p>
+          <p>
+            I built the website for my boat-cleaning and detailing business on
+            Martha’s Vineyard and ran the business myself. It taught me how to
+            put myself out there, explain the value of my services, and take
+            responsibility for the work from start to finish.
+          </p>
+          <p>
+            That experience helps me understand what a small-business owner needs
+            from a website: a clear offer, a reason to trust it, and an easy way
+            to get in touch.
+          </p>
+          <a className="about-link" href="https://hightideshine.net/" target="_blank" rel="noreferrer">
+            Visit High Tide Shine <ExternalArrow />
+          </a>
+        </div>
+        <figure className="service-founder-image">
+          <a href="https://hightideshine.net/" target="_blank" rel="noreferrer" aria-label="Visit High Tide Shine">
+            <Image
+              src="/credibility/high-tide-shine-harbor.webp"
+              alt="Boats docked in Edgartown Harbor on Martha’s Vineyard, featured on the High Tide Shine website"
+              width={1536}
+              height={1024}
+              sizes="(max-width: 900px) 90vw, 45vw"
+            />
+          </a>
+          <figcaption>Boat cleaning &amp; detailing · Martha’s Vineyard</figcaption>
+        </figure>
+      </section>
+
       <section className="credibility-cta" aria-labelledby="credibility-cta-title">
         <div className="section-shell">
           <p className="section-label">Put the lessons to work</p>
