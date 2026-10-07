@@ -155,6 +155,42 @@ export default function CredibilityPage() {
         </figure>
       </section>
 
+      <section className="service-founder device-project section-shell" aria-labelledby="device-web-title">
+        <div className="service-founder-copy">
+          <p className="section-label">Device Web · Independent project</p>
+          <h2 id="device-web-title">Building tools that make website reviews easier.</h2>
+          <p className="service-founder-intro">
+            One website. Phone, tablet, and laptop previews—side by side.
+          </p>
+          <p>
+            I built Device Web to make it easier to compare how a website looks
+            at different screen sizes. Enter a URL to preview it in iPhone,
+            iPad, and MacBook frames, all in one place.
+          </p>
+          <p>
+            It brings the details into focus: how a headline wraps, where
+            content stacks, and whether a layout still feels clear on a smaller
+            screen. A practical tool built around the same attention to detail
+            I bring to my websites.
+          </p>
+          <a className="about-link" href="https://device-web-five.vercel.app/" target="_blank" rel="noreferrer">
+            Try Device Web <ExternalArrow />
+          </a>
+        </div>
+        <figure className="service-founder-image">
+          <a href="https://device-web-five.vercel.app/" target="_blank" rel="noreferrer" aria-label="Try Device Web">
+            <Image
+              src="/credibility/device-web-preview.jpg"
+              alt="Device Web showing its example website side by side in iPhone, iPad, and MacBook frames"
+              width={1265}
+              height={1056}
+              sizes="(max-width: 900px) 90vw, 45vw"
+            />
+          </a>
+          <figcaption>Device Web · Screen-size previews using your browser</figcaption>
+        </figure>
+      </section>
+
       <section className="credibility-cta" aria-labelledby="credibility-cta-title">
         <div className="section-shell">
           <p className="section-label">Put the lessons to work</p>
