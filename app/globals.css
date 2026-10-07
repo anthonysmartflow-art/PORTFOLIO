@@ -727,6 +727,7 @@ a:focus-visible {
   padding-block: clamp(70px, 8vw, 112px);
 }
 .device-project { border-top: 1px solid var(--line); }
+.device-project-preview video { display: block; width: 100%; height: auto; }
 .service-founder-copy h2 {
   margin: 0;
   font-family: var(--display);

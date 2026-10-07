@@ -169,20 +169,26 @@ export default function CredibilityPage() {
           </p>
           <p>
             This is part of my development workflow—not a public tool for
-            testing any website. The preview below shows its built-in example.
+            testing any website. The video shows the tool in use.
           </p>
         </div>
         <figure className="service-founder-image">
           <div className="device-project-preview">
-            <Image
-              src="/credibility/device-web-preview.jpg"
-              alt="Device Web showing its example website side by side in iPhone, iPad, and MacBook frames"
-              width={1265}
-              height={1056}
-              sizes="(max-width: 900px) 90vw, 45vw"
-            />
+            <video
+              width={1920}
+              height={1080}
+              controls
+              playsInline
+              preload="metadata"
+              aria-label="Device Web demonstration of my website build-checking workflow"
+              aria-describedby="device-web-video-caption"
+            >
+              <source src="/credibility/device-web-tester.mp4" type="video/mp4" />
+              Your browser does not support embedded video.{' '}
+              <a href="/credibility/device-web-tester.mp4">Watch the Device Web demonstration.</a>
+            </video>
           </div>
-          <figcaption>My build-checking workflow · Built-in example shown</figcaption>
+          <figcaption id="device-web-video-caption">My build-checking workflow · Device Web demonstration</figcaption>
         </figure>
       </section>
 
