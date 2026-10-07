@@ -745,7 +745,7 @@ a:focus-visible {
 .service-founder-copy > .service-founder-intro { color: var(--ink); font-size: 1.15rem; line-height: 1.5; }
 .service-founder-copy > a { margin-top: 26px; }
 .service-founder-image { margin: 0; }
-.service-founder-image a { display: block; border-radius: 12px; overflow: hidden; }
+.service-founder-image a, .device-project-preview { display: block; border-radius: 12px; overflow: hidden; }
 .service-founder-image img { width: 100%; height: auto; }
 .service-founder-image figcaption { margin-top: 14px; color: var(--ink-soft); font-size: 0.78rem; line-height: 1.5; }
 @media (max-width: 900px) {

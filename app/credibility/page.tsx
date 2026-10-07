@@ -157,28 +157,23 @@ export default function CredibilityPage() {
 
       <section className="service-founder device-project section-shell" aria-labelledby="device-web-title">
         <div className="service-founder-copy">
-          <p className="section-label">Device Web · Independent project</p>
-          <h2 id="device-web-title">Building tools that make website reviews easier.</h2>
+          <p className="section-label">Device Web · My build-checking tool</p>
+          <h2 id="device-web-title">A closer look at my own website builds.</h2>
           <p className="service-founder-intro">
-            One website. Phone, tablet, and laptop previews—side by side.
+            A tool I use to review my website builds across screen sizes.
           </p>
           <p>
-            I built Device Web to make it easier to compare how a website looks
-            at different screen sizes. Enter a URL to preview it in iPhone,
-            iPad, and MacBook frames, all in one place.
+            I use Device Web to compare my own builds in phone, tablet, and
+            laptop previews, side by side. It helps me check how headings wrap,
+            content stacks, and layouts adapt before launch.
           </p>
           <p>
-            It brings the details into focus: how a headline wraps, where
-            content stacks, and whether a layout still feels clear on a smaller
-            screen. A practical tool built around the same attention to detail
-            I bring to my websites.
+            This is part of my development workflow—not a public tool for
+            testing any website. The preview below shows its built-in example.
           </p>
-          <a className="about-link" href="https://device-web-five.vercel.app/" target="_blank" rel="noreferrer">
-            Try Device Web <ExternalArrow />
-          </a>
         </div>
         <figure className="service-founder-image">
-          <a href="https://device-web-five.vercel.app/" target="_blank" rel="noreferrer" aria-label="Try Device Web">
+          <div className="device-project-preview">
             <Image
               src="/credibility/device-web-preview.jpg"
               alt="Device Web showing its example website side by side in iPhone, iPad, and MacBook frames"
@@ -186,8 +181,8 @@ export default function CredibilityPage() {
               height={1056}
               sizes="(max-width: 900px) 90vw, 45vw"
             />
-          </a>
-          <figcaption>Device Web · Screen-size previews using your browser</figcaption>
+          </div>
+          <figcaption>My build-checking workflow · Built-in example shown</figcaption>
         </figure>
       </section>
 
